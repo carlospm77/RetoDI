@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- HEAD-->
+<!-- Inserta el fragmento <head> -->
+<head th:replace="~{fragments/head :: head}"></head>
+
+<!-- Permite que el footer quede abajo incluso con poco contenido -->
+<body class="d-flex flex-column min-vh-100">
+
+<!-- NAVBAR -->
+<!-- Inserta el fragment del menú de navegación -->
+<th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="container mt-4 flex-grow-1">
+    <h2>Informes</h2>
+
+    <!-- Grid de Bootstrap con 4 gráficos -->
+    <div class="row mt-4">
+
+        <!-- Gráfico 1: Clientes por género -->
+        <div class="col-md-6 mb-4">
+            <h5>Clientes por Género</h5>
+            <canvas id="generoChart"></canvas>
+        </div>
+
+        <!-- Gráfico 2: Reviews por estrellas -->
+        <div class="col-md-6 mb-4">
+            <h5>Reviews por Estrellas</h5>
+            <canvas id="estrellasChart"></canvas>
+        </div>
+
+        <!-- Gráfico 3: Clientes por franja de edad -->
+        <div class="col-md-6 mb-4">
+            <h5>Clientes por Franja de Edad</h5>
+            <canvas id="edadChart"></canvas>
+        </div>
+
+        <!-- Gráfico 4: Gráfico libre (intolerancias) -->
+        <div class="col-md-6 mb-4">
+            <h5>Gráfico Libre</h5>
+            <canvas id="customChart"></canvas>
+        </div>
+    </div>
+</main>
+
+<!-- FOOTER -->
+<!-- Inserta el fragment del footer  -->
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+
+<!-- SCRIPTS -->
+<!-- Inserta el fragment de los scripts -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+<script th:inline="javascript">
+
+   //1. CLIENTES POR GÉNERO (Pie Chart)//
+
+// Etiquetas enviadas desde el controlador
+const generoLabels = /*[[${generosLabels}]]*/ ["Hombre", "Mujer", "Otro"];
+
+// Datos enviados desde el controlador
+const generoData = /*[[${generosData}]]*/ [10, 5, 2];
+
+new Chart(document.getElementById("generoChart"), {
+	// Gráfico circular
+    type: "pie", 
+    data: {
+        labels: generoLabels,
+        datasets: [{
+            data: generoData,
+         	// Colores
+            backgroundColor: ["#0d6efd", "#dc3545", "#6f42c1"] 
+        }]
+    }
+});
+
+   // 2. REVIEWS POR ESTRELLAS (Bar Chart)//
+
+// Etiquetas fijas para las estrellas
+const estrellasLabels = ["1 ⭐", "2 ⭐", "3 ⭐", "4 ⭐", "5 ⭐"];
+
+// Datos enviados desde el controlador
+const estrellasData = /*[[${estrellasData}]]*/ [2, 4, 8, 12, 6];
+
+new Chart(document.getElementById("estrellasChart"), {
+	// Gráfico de barras
+    type: "bar", 
+    data: {
+        labels: estrellasLabels,
+        datasets: [{
+            label: "Cantidad",
+            data: estrellasData,
+            backgroundColor: "#ffc107"
+        }]
+    },
+    options: {
+        scales: {
+        	// El eje Y empieza en 0
+            y: { beginAtZero: true } 
+        }
+    }
+});
+
+   //3. CLIENTES POR FRANJA DE EDAD (Bar Chart)//
+
+// Etiquetas enviadas desde el controlador
+const edadLabels = /*[[${edadLabels}]]*/ ["0-15", "16-24", "25-35", "36-50", "50+"];
+
+// Datos enviados desde el controlador
+const edadData = /*[[${edadData}]]*/ [3, 7, 12, 5, 4];
+
+new Chart(document.getElementById("edadChart"), {
+    type: "bar",
+    data: {
+        labels: edadLabels,
+        datasets: [{
+            label: "Clientes",
+            data: edadData,
+            backgroundColor: "#20c997"
+        }]
+    },
+    options: {
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+   //4. GRÁFICO LIBRE (Doughnut Chart)//
+   //Intolerancias vs No intolerancias//
+
+// Etiquetas fijas
+const customLabels = ["Con intolerancia", "Sin intolerancia"];
+
+// Datos enviados desde el controlador
+const customData = /*[[${intoleranciaData}]]*/ [5, 20];
+
+// Gráfico de donut
+new Chart(document.getElementById("customChart"), {
+    type: "doughnut", 
+    data: {
+        labels: customLabels,
+        datasets: [{
+            data: customData,
+            backgroundColor: ["#fd7e14", "#198754"]
+        }]
+    }
+});
+</script>
+
+</body>
+</html>

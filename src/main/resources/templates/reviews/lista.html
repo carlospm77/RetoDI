@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- HEAD -->
+<!-- Inserta el fragmento <head> -->
+<head th:replace="~{fragments/head :: head}"></head>
+
+<!-- Permite que el footer quede abajo incluso con poco contenido -->
+<body class="d-flex flex-column min-vh-100">
+
+<!-- NAVBAR -->
+<!-- Inserta el fragment del menú de navegación -->
+<th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="container mt-4 flex-grow-1">
+
+    <!-- Encabezado con título y botón para crear una nueva review -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Listado de Reviews</h2>
+        <a href="/reviews/nuevo" class="btn btn-primary">Nueva Review</a>
+    </div>
+
+    <!-- Tabla que muestra todas las reviews -->
+    <table class="table table-striped table-hover">
+        <!-- Encabezado de la tabla -->
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Descripción</th>
+                <th>Valoración</th>
+                <th>Cliente</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <!-- Cuerpo de la tabla -->
+        <tbody>
+            <!-- Itera sobre la lista de reviews enviada desde el controlador -->
+            <tr th:each="r : ${reviews}">
+                
+                <!-- Muestra el ID de la review -->
+                <td th:text="${r.id}"></td>
+
+                <!-- Muestra la descripción escrita por el cliente -->
+                <td th:text="${r.descripcion}"></td>
+
+                <!-- Muestra la valoración numérica (1 a 5 estrellas) -->
+                <td th:text="${r.valoracion}"></td>
+
+                <!-- Muestra el nombre del cliente que hizo la review -->
+                <td th:text="${r.cliente.nombre}"></td>
+
+                <!-- Botones de acción: editar y eliminar -->
+                <td>
+                    <!-- Enlace para editar la review -->
+                    <a th:href="@{'/reviews/editar/' + ${r.id}}" 
+                       class="btn btn-warning btn-sm">Editar</a>
+
+                    <!-- Enlace para eliminar la review -->
+                    <a th:href="@{'/reviews/eliminar/' + ${r.id}}" 
+                       class="btn btn-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+
+<!-- FOOTER -->
+<!-- Inserta el fragment del footer -->
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+
+<!-- SCRIPTS -->
+<!-- Inserta el fragment de los scripts  -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+
+</body>
+</html>

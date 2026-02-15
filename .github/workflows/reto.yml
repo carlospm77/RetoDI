@@ -2,7 +2,7 @@ name: Mi Primer Pipeline de Distribucion
 
 on:
   push:
-    branches: [ "main", "dev-nombrealumno" ]
+    branches: [ "main", "dev-carlos" ]
 
 jobs:
   build:

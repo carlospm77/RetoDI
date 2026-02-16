@@ -1,0 +1,33 @@
+<!-- Fragmento Thymeleaf reutilizable para la barra de navegación -->
+<th:block th:fragment="navbar">
+	<!-- Barra de navegación con estilo Bootstrap -->
+    <nav class="navbar navbar-expand-lg navbar-warning bg-warning mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <!-- Nombre de la aplicación -->
+                Aura Reviews
+            </a>
+            <!-- Botón hamburguesa para móviles -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!-- Contenedor colapsable del menú -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                     	<!-- Enlace a la sección de clientes -->
+                        <a class="nav-link" href="/clientes">Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                    	<!-- Enlace a la sección de reviews -->
+                        <a class="nav-link" href="/reviews">Reviews</a>                       
+                    </li>
+                    <li class="nav-item">
+                    	<!-- Enlace al dashboard de informes -->
+                        <a class="nav-link" href="/informes">Informes</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</th:block>

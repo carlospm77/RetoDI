@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- HEAD -->
+<!-- Inserta el fragmento <head> -->
+<head th:replace="~{fragments/head :: head}"></head>
+
+<!-- Permite que el footer quede abajo incluso con poco contenido -->
+<body class="d-flex flex-column min-vh-100">
+
+<!-- NAVBAR -->
+<!-- Inserta el fragment del menú de navegación -->
+<th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+<!-- CONTENIDO PRINCIPAL -->
+<main class="container mt-4 flex-grow-1">
+
+    <!-- Encabezado con título y botón para crear un nuevo cliente -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="mb-0">Lista de clientes</h1>
+        <a href="/clientes/nuevo" class="btn btn-primary">Nuevo Cliente</a>
+    </div>
+
+    <!-- Tabla responsiva para mostrar los clientes -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <!-- Encabezado de la tabla -->
+            <thead class="table-dark">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Edad</th>
+                    <th>Género</th>
+                    <th>Intolerancia</th>
+                    <th>Detalle</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+
+            <!-- Cuerpo de la tabla -->
+            <tbody>
+                <!-- Itera sobre la lista de clientes enviada desde el controlador -->
+                <tr th:each="cliente : ${clientes}">
+                    
+                    <!-- Muestra el nombre del cliente -->
+                    <td th:text="${cliente.nombre}"></td>
+
+                    <!-- Muestra la edad -->
+                    <td th:text="${cliente.edad}"></td>
+
+                    <!-- Muestra el género -->
+                    <td th:text="${cliente.genero}"></td>
+
+                    <!-- Muestra si tiene intolerancia (Sí/No) -->
+                    <td>
+                        <span th:text="${cliente.intolerancia ? 'Sí' : 'No'}"></span>
+                    </td>
+
+                    <!-- Muestra el detalle de la intolerancia -->
+                    <td th:text="${cliente.detalleIntolerancia}"></td>
+
+                    <!-- Botones de acción: editar y eliminar -->
+                    <td>
+                        <!-- Enlace para editar el cliente -->
+                        <a th:href="@{/clientes/editar/{id}(id=${cliente.id})}" 
+                           class="btn btn-sm btn-warning">Editar</a>
+
+                        <!-- Enlace para eliminar el cliente -->
+                        <a th:href="@{/clientes/eliminar/{id}(id=${cliente.id})}" 
+                           class="btn btn-sm btn-danger">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+<!-- FOOTER -->
+<!-- Inserta el fragment del footer  -->
+<th:block th:replace="~{fragments/footer :: footer}"></th:block>
+
+<!-- SCRIPTS -->
+<!-- Inserta el frament de los scripts -->
+<th:block th:replace="~{fragments/scripts :: scripts}"></th:block>
+</body>
+</html>

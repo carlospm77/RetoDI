@@ -1,10 +1,13 @@
 package com.example.demo.entity;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+=======
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +15,10 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+<<<<<<< HEAD
 import jakarta.persistence.OneToMany;
+=======
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
 import jakarta.persistence.OneToOne;
 
 // Entidad Cliente
@@ -35,8 +41,14 @@ public class Cliente {
     private String detalleIntolerancia;
 
     // Relación con Review
+<<<<<<< HEAD
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviews = new ArrayList<>();
+=======
+    @OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Review review;
+
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
     // getters y setters
 	public Long getId() {
 		return id;
@@ -86,6 +98,7 @@ public class Cliente {
 		this.detalleIntolerancia = detalleIntolerancia;
 	}
 
+<<<<<<< HEAD
     public List<Review> getReviews() {
         return reviews;
     }
@@ -93,5 +106,14 @@ public class Cliente {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+=======
+	public Review getReview() {
+		return review;
+	}
+
+	public void setReview(Review review) {
+		this.review = review;
+	}
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
     
 }

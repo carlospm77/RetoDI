@@ -11,13 +11,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+<<<<<<< HEAD
 import org.springframework.test.context.ActiveProfiles;
+=======
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+<<<<<<< HEAD
 @SpringBootTest(
 	    webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
 	    properties = {
@@ -28,6 +32,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 	    }
 	)
 @ActiveProfiles("test") 
+=======
+@SpringBootTest
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
 @AutoConfigureMockMvc
 class ReviewRestControllerE2ETest {
 

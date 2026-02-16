@@ -1,7 +1,14 @@
 name: Mi Primer Pipeline de Distribucion
+<<<<<<< HEAD
 on:
   push:
     branches: [ "main", "dev-carlos" ] # RETO 1: Añade la rama que corresponda
+=======
+
+on:
+  push:
+    branches: [ "main", "dev-nombrealumno" ]
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
 
 jobs:
   build:
@@ -16,12 +23,25 @@ jobs:
           distribution: 'temurin'
           cache: 'maven'
 
+<<<<<<< HEAD
       - name: Construir Proyecto
         run: ./mvnw package -DskipTests # Generamos el .jar
 
       # RETO 2: Completar los datos para guardar el archivo
+=======
+      - name: Dar permisos al wrapper de Maven
+        run: chmod +x mvnw
+
+      - name: Construir Proyecto
+        run: ./mvnw package -DskipTests
+
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
       - name: Guardar el archivo para descargar
         uses: actions/upload-artifact@v4
         with:
           name: mi-aplicacion-lista
+<<<<<<< HEAD
           path: target/*.jar
+=======
+          path: target/*.jar
+>>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063

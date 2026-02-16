@@ -14,11 +14,8 @@ import com.example.demo.service.ClienteService;
 import com.example.demo.service.ReviewService;
 import org.springframework.http.ResponseEntity;
 
-<<<<<<< HEAD
+
 @SpringBootTest(properties = "spring.profiles.active=test")
-=======
-@SpringBootTest
->>>>>>> a2ca45a0249a2e6c98204ffbc159e78ae0678063
 class ReviewRestControllerTest {
 
     @Mock

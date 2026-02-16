@@ -1,0 +1,26 @@
+name: Filtro de Desarrollo
+
+on:
+  push:
+    branches:
+      - feature-dev   # Solo se ejecuta push en feature-dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Dar permisos al wrapper de Maven
+        run: chmod +x mvnw
+
+      - name: Compilar y ejecutar tests
+        run: ./mvnw test

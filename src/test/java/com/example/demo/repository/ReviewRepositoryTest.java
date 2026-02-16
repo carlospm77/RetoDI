@@ -13,7 +13,7 @@ import com.example.demo.entity.Cliente;
 import com.example.demo.entity.Review;
 
 @DataJpaTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 class ReviewRepositoryTest {
 
     @Autowired

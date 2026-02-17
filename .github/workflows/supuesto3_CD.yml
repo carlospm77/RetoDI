@@ -5,6 +5,8 @@ on:
     tags:
       - 'v*'     # Solo se ejecuta cuando el tag empieza por "v"
 
+permissions: 
+  contents: write # Permiso necesario para crear releases
 jobs:
   release:
     runs-on: ubuntu-latest

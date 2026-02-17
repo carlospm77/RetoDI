@@ -1,0 +1,42 @@
+name: Publicar Javadoc en GitHub Pages
+
+on:
+  push:
+    branches:
+      - main   # la rama principal
+
+permissions:
+  contents: write   # Necesario para publicar en gh-pages
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Descargar el código
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      # Configurar Java 21
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          check-latest: true
+          cache: 'maven'
+
+      # Dar permisos al wrapper
+      - name: Dar permisos al wrapper de Maven
+        run: chmod +x mvnw
+
+      # Generar Javadoc
+      - name: Generar Javadoc
+        run: ./mvnw -B javadoc:javadoc
+
+      # Desplegar Javadoc en GitHub Pages
+      - name: Publicar en GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: target/site/apidocs

@@ -1,0 +1,40 @@
+name: Publicación de Releases
+
+on:
+  push:
+    tags:
+      - 'v*'     # Solo se ejecuta cuando el tag empieza por "v"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargar el código
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      # 2. Configurar Java 21 + caché de Maven
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          check-latest: true
+          cache: 'maven'
+
+      # 3. Dar permisos al wrapper
+      - name: Dar permisos al wrapper de Maven
+        run: chmod +x mvnw
+
+      # 4. Generar el WAR sin tests
+      - name: Generar WAR sin tests
+        run: ./mvnw -B -DskipTests package
+
+      # 5. Crear la Release automáticamente
+      - name: Crear Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/*.war
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

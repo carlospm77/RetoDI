@@ -1,0 +1,32 @@
+name: Limpieza y Silencio
+
+on:
+  push:   # Se ejecuta en TODAS las ramas
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargar el código
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      # 2. Configurar Java 21
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          check-latest: true
+
+      # 3. Dar permisos al wrapper de Maven
+      - name: Dar permisos al wrapper de Maven
+        run: chmod +x mvnw
+
+      # 4. Ejecutar Maven en modo batch
+      #    -B → modo batch
+      #    clean → limpia target antes de test
+      - name: Compilar y ejecutar tests en modo batch
+        run: ./mvnw -B clean test

@@ -26,6 +26,6 @@ jobs:
       - name: Dar permisos al wrapper de Maven
         run: chmod +x mvnw
 
-#  Escaneo de vulnerabilidades con OWASP Dependency-Check 
-      - name: Escaneo de vulnerabilidades (OWASP) run
-        : ./mvnw -B org.owasp:dependency-check-maven:check
+      # 4. Escaneo de vulnerabilidades con OWASP Dependency-Check
+      - name: Escaneo de vulnerabilidades (OWASP)
+        run: ./mvnw -B org.owasp:dependency-check-maven:check

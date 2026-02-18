@@ -1,0 +1,40 @@
+name: CD - Supuesto 8
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cd:
+    runs-on: ubuntu-latest
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Dar permisos al wrapper
+        run: chmod +x mvnw
+
+      - name: Generar WAR sin tests
+        run: ./mvnw -DskipTests package
+
+      - name: Crear archivo .env con credenciales
+        run: |
+          echo "DB_USER=$DB_USER" > db.env
+          echo "DB_PASSWORD=$DB_PASSWORD" >> db.env
+
+      - name: Confirmación
+        run: |
+          echo "Credenciales de BD cargadas correctamente"
+          echo "El usuario se ha inyectado"
+          echo "La contraseña NO se muestra por seguridad"

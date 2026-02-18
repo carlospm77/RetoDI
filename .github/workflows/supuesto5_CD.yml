@@ -1,0 +1,38 @@
+name: Notificador de Estado
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          check-latest: true
+          cache: 'maven'
+
+      - name: Dar permisos al wrapper
+        run: chmod +x mvnw
+
+      - name: Compilar proyecto
+        run: ./mvnw -B -DskipTests package
+
+      # Notificador de Estado
+      - name: Notificador de estado
+        run: |
+          echo "----------------------------------------"
+          echo " Despliegue completado correctamente"
+          echo " Fecha: $(date)"
+          echo " Ejecutado por: ${{ github.actor }}"
+          echo " Mensaje: El despliegue ha sido un éxito"
+          echo "----------------------------------------"

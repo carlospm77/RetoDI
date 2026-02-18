@@ -1,0 +1,28 @@
+name: CI/CD Encadenado
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ejecutar tests
+        run: ./mvnw test
+
+  cd:
+    needs: ci
+    runs-on: ubuntu-latest
+    if: success()   # Evita que CD se ejecute si CI falla
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Desplegar WAR
+        run: echo "Aquí iría despliegue remoto por SCP"
